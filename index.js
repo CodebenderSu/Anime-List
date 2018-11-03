@@ -17,3 +17,13 @@ app.get('/anime/:id', (req, res) => {
   if (!item) return res.status(404).send('Error 404: Anime series not found');
   res.send(item);
 });
+// Get list of anime by genre
+app.get('/anime/genres/:genre', (req, res) => {
+  const reqGenre = req.params.genre.toUpperCase();
+  const items = []
+  const search = list.forEach(l => {
+    if (l.genre.find(i => i.toUpperCase() === reqGenre)) return items.push(l);
+  });
+  if (items.length) return res.send(items);
+  res.status(404).send('Error 404: Anime genre not found')
+});
