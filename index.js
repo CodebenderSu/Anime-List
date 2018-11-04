@@ -84,4 +84,14 @@ app.put('/anime/:id', (req, res) => {
   item.review = req.body.review;
   item.genre = req.body.genre;
   res.send(item);
-})
+});
+
+//// DELETE REQUESTS ////
+
+app.delete('/anime/:id', (req, res) => {
+  const item = list.find(l => l.id === parseInt(req.params.id));
+  if (!item) return res.status(404).send('Error 404: Anime series not found');
+  const index = list.indexOf(item);
+  list.splice(index, 1);
+  res.send(list);
+});
